@@ -1,4 +1,4 @@
-# Pragmatic Fairness: Optimizing Policies with Outcome Disparity Control
+# Pragmatic Fairness: Developing Policies with Outcome Disparity Control
 
 ## Steps to reproduce results from the submission.
 
