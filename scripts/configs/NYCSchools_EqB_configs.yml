@@ -1,0 +1,105 @@
+dataset:
+##### NYCschools
+  dataset_name: NYCschools
+  T_dim: 1
+  Cl_dim: 1
+  Cs_dim: 1
+  S_dim: 1
+  A_dim: 1
+  A_mu_dim: 1 
+  Y_dim: 1
+  X_dim_total: 3
+  inputSize: 9
+  std: 0.4
+  const_choice: EqB   
+  behav_policy_dim: 6
+  stored_mu_model: False
+  stored_policy_mu_model: False
+  minA:    0.115 # -0.006
+  rangeA:  16.88 # 17.26481
+  noise_mean: 0.5
+  search_range_start: -200
+  search_range_end: 200
+  constant_action: False
+  sensitive_binary: True
+  
+# 345 Simulated Y with pi nonlinear bounded01 
+  data_save_dir: data/NYCschools/simY_pi_nonlinear_strongerA
+  save_loc options: out/nycschools_pi_nonlinear_strongerA/
+  save_loc: out/NYCschools/nycschools_pi_nonlinear_strongerA/
+  save_loc_base: out/NYCschools/nycschools_pi_nonlinea_strongerA/
+  save_oracle_model_loc: data/NYCschools/pi_nonlinear_strongerA_oracle_model
+  saved_model_dir: saved_models/NYCschools/nycschools_pi_nonlinear_strongerA/
+  tensorboard_dir: logs/NYCschools/nycschools_pi_nonlinear_strongerA/
+
+
+
+### EqB constraint 
+optimizer:
+  stored_stage1_model: False
+  # This is only used for the black box experiment
+  outputSize: 1
+  dropout: 0.
+  optimizer: adam
+  stage1_lr: 0.01
+  stage1_weight_decay: 0.0
+  stage1_epochs: 500
+  stage1_hidden_dim: 128
+  stage1_extra_layer: False
+  policy_lr: 0.0001
+  policy_mu_epochs: 1000
+  lr:  0.01
+  momentum: 0
+  beta1: 0.9
+  beta2: 0.999
+  hidden_dim: 10 
+  weight_decay: 0
+  epochs: 1000
+  schd: False
+  schd_step_size: 100
+  gamma: 0.85
+  train_batch_size: 20000
+  seed: 0
+  lmbda: 0
+  # optional data splitting
+  split_dataset: False
+  #### options for implementing augmented lagrangian
+  augmented_lagrange: False
+  # inequality constraint thresh
+  constraint_thresh: 5
+  # denominator of penalty of large lambda value change
+  mu: 0.001
+  mu_update: 0.0001
+  last_lambda: None
+  ####
+  loss_criterion: fix_outcome_regression
+  constraint: min_grad_wrt_s
+  arch: dist
+  # action clipping options, only for ModBrk experiments
+  action_clip: False
+  action_clip_epsilon: 1
+  adaptive_epsilon: False
+  perc_adapative_epsilon: 1
+  interval_criterion: 'min_max'
+  non_negative_actions: True
+  ### Option of running slack vary plot experiment
+  slack_vary_plot_generate: True
+  # Flag to use lagrangian optimization instead of Augmented lagrangian
+  slack_vary_use_lagrng: False
+  min_slack: 5
+  max_slack: 8.75
+  num_slacks: 5
+  init_lmbda: 0
+  init_mu: 0.001
+  # Baseline 1: drop sensitive attribute
+  drop_sensitive: False
+  # Baseline 2: what constant values to train
+  constant_action: False
+  constant_action_value: 1
+  constant_action_values:
+    - 0
+    - 0.3
+  # Baseline 3: original A
+  original_A: False
+  
+

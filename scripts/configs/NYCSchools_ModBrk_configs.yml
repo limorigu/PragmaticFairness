@@ -1,0 +1,90 @@
+dataset:
+##### NYCschools
+  dataset_name: NYCschools
+  T_dim: 1
+  Cl_dim: 1
+  Cs_dim: 1
+  S_dim: 1
+  A_dim: 1
+  A_mu_dim: 1 
+  Y_dim: 1
+  X_dim_total: 3
+  inputSize: 4
+  std: 0.4
+  discrete_action: False
+  sensitive_binary: True
+  # used for integration with EqB constraint
+  const_choice: ModBrk
+  behav_policy_dim: 0
+  use_analytic_mu_model: False
+
+  ### Bootstrapped+Simulated NYCschools Y compose sanity check 2
+  data_save_dir: data/NYCschools/boot_20k_composedY_non_div_relu_samplingfix_nonlin_scaled_pi_b01
+  save_loc: out/NYCschools/boot_20k_composedY_non_div_relu_samplingfix_nonlin_scaled_pi_b01/
+  save_loc_base: out/NYCschools/boot_20k_composedY_non_div_relu_samplingfix_nonlin_scaled_pi_b01/
+  tensorboard_dir: logs/NYCschools/boot_20k_composedY_non_div_relu_samplingfix_nonlin_scaled_pi_b01/
+  saved_model_dir: saved_models/NYCschools/boot_20k_composedY_non_div_relu_samplingfix_nonlin_scaled_pi_b01/
+
+
+optimizer:
+  stored_stage1_model: False
+  dropout: 0.
+  optimizer: adam
+  stage1_lr: 0.005
+  stage1_weight_decay: 0.0
+  stage1_epochs: 3000
+  stage1_hidden_dim: 256
+  stage1_extra_layer: True
+  lr: 0.001
+  momentum: 0
+  beta1: 0.9
+  beta2: 0.99
+  hidden_dim: 64
+  weight_decay: 0
+  epochs: 3000
+  schd: True
+  schd_step_size: 100
+  gamma: 0.8
+  train_batch_size: 20000
+  seed: 42
+  lmbda: 0
+  split_dataset: True
+  #### options for implementing augmented lagrangian
+  augmented_lagrange: False
+  # inequality constraint thresh
+  constraint_thresh: 0.
+  # denominator of penalty of large lambda value change
+  mu: 1
+  mu_update: 0.1
+  last_lambda: None
+  ####
+  loss_criterion: fix_outcome_regression
+  constraint: min_grad_wrt_s
+  arch: additive_outcome_and_determinstic_policy
+  # action clipping options
+  action_clip: True
+  action_clip_epsilon: 1
+  adaptive_epsilon: True
+  perc_adapative_epsilon: 1
+  interval_criterion: 'min_max'
+  non_negative_actions: True
+  ### Option of running slack vary plot experiment
+  slack_vary_plot_generate: True
+  min_slack: 17
+  max_slack: 62
+  num_slacks: 5
+  init_lmbda: 0
+  init_mu: 3
+  # Baseline 1: drop sensitive attribute
+  drop_sensitive: False
+  # Baseline 2: what constant values to train
+  constant_action: False
+  constant_action_value: 0
+  constant_action_values:
+    - 0
+    - 0.3
+    - 0.6
+    - 0.9
+    - 1
+  # Baseline 3: original A
+  original_A: False

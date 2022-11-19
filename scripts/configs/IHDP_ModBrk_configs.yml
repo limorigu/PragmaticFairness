@@ -1,0 +1,84 @@
+dataset:
+##### IHDP
+  dataset_name: IHDP
+  Con_cov_dim: 9
+  Cat_cov_dim: 22
+  S_dim: 1
+  X_dim_total: 31
+  A_dim: 1
+  Y_dim: 1 
+  inputSize: 32
+  discrete_action: False
+  sensitive_binary: True
+  # used for integration with EqB constraint
+  const_choice: ModBrk
+  behav_policy_dim: 0
+  use_analytic_mu_model: False
+  ### Boosted+Simulated IHDP cont action
+  data_save_dir: data/IHDP/cont_action_boosted_simulated20k
+  save_loc: out/IHDP/cont_action_boosted_simulated20k/
+  save_loc_base: out/IHDP/cont_action_boosted_simulated20k/
+  tensorboard_dir: logs/IHDP/cont_action_boosted_simulated20k/
+  saved_model_dir: saved_models/IHDP/cont_action_boosted_simulated20k/
+
+optimizer:
+  stored_stage1_model: False
+  dropout: 0.
+  optimizer: adam
+  stage1_lr: 0.001
+  stage1_weight_decay: 0.1
+  stage1_hidden_dim: 512
+  stage1_extra_layer: False
+  stage1_epochs: 1000
+  lr: 0.0005
+  momentum: 0
+  beta1: 0.9
+  beta2: 0.99
+  hidden_dim: 50
+  weight_decay: 0
+  epochs: 3000
+  schd: False
+  schd_step_size: 100
+  gamma: 0.9
+  train_batch_size: 20000
+  seed: 42
+  lmbda: 0
+  split_dataset: True
+  #### options for implementing augmented lagrangian
+  augmented_lagrange: False
+  # inequality constraint thresh
+  constraint_thresh: 0.
+  # denominator of penalty of large lambda value change
+  mu: 3
+  mu_update: 0.3
+  last_lambda: None
+  ####
+  loss_criterion: fix_outcome_regression
+  constraint: min_grad_wrt_s
+  arch: additive_outcome_and_determinstic_policy
+  # action clipping options
+  action_clip: True
+  action_clip_epsilon: 1
+  adaptive_epsilon: True
+  perc_adapative_epsilon: 1
+  interval_criterion: 'min_max'
+  non_negative_actions: True
+  ### Option of running slack vary plot experiment
+  slack_vary_plot_generate: True
+  min_slack: 0.001
+  max_slack: 18
+  num_slacks: 5
+  init_lmbda: 0
+  init_mu: 3
+  # Baseline 1: drop sensitive attribute
+  drop_sensitive: False
+  # Baseline 2: what constant values to train
+  constant_action: False
+  constant_action_value: None
+  constant_action_values:
+    - 0
+    - 3
+    - 5
+    - 7
+  # Baseline 3: original A
+  original_A: False
